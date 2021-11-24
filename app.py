@@ -1,4 +1,4 @@
-from src.models.user import User
+from user import User
 
 from flask import Flask, render_template, request, session
 
@@ -22,4 +22,4 @@ def login_user():
 
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=5000, debug=True)
