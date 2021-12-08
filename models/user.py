@@ -1,7 +1,7 @@
 import uuid
 from flask import session
 from src.common.database import Database
-from src.models.models.blog import Blog
+from src.models.blog import Blog
 import datetime
 
 
@@ -52,12 +52,15 @@ class User(object):
             session['email'] = user_email
 
 
-@staticmethod
-def logout():
-    session['email'] = None
+
+        @staticmethod
+        def logout():
+            session['email'] = None
+
 
     def get_blogs(self):
         return Blog.find_by_author_id(self._id)
+
 
     def new_blog(self, title, description):
         blog = Blog(author=self.email,
@@ -66,6 +69,7 @@ def logout():
                     author_id=self._id)
         blog.save_to_mongo()
 
+
     @staticmethod
     def new_post(blog_id, title, content, date=datetime.datetime.utcnow()):
         blog = Blog.from_mongo(blog_id)
@@ -73,12 +77,14 @@ def logout():
                       content=content,
                       date=date)
 
+
     def json(self):
         return {
             "email": self.email,
             "_id": self._id,
             "password": self.password
         }
+
 
     def save_to_mongo(self):
         Database.insert("users", self.json())

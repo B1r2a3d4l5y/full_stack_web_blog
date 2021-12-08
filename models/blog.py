@@ -1,4 +1,4 @@
-from src.models.models.post import Post
+from src.models.post import Post
 
 import datetime
 

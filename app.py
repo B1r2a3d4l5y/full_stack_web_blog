@@ -1,4 +1,4 @@
-from user import User
+from src.models.user import User
 
 from flask import Flask, render_template, request, session
 
@@ -15,7 +15,7 @@ def login_user():
     email = request.form['email']
     password = request.form['password']
 
-    if User.login_valid(email.password):
+    if User.login_valid(email, password):
         User.login(email)
 
     return render_template("profile.html", email=session['email'])
