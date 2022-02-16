@@ -1,3 +1,5 @@
+from src.common.database import Database
+from src.models.post import Post
 from src.models.user import User
 
 from flask import Flask, render_template, request, session
@@ -19,6 +21,11 @@ def login_user():
         User.login(email)
 
     return render_template("profile.html", email=session['email'])
+
+
+@app.before_first_request
+def initialize():
+    Database.initialize()
 
 
 if __name__ == '__main__':
