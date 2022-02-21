@@ -5,6 +5,12 @@ from src.models.user import User
 from flask import Flask, render_template, request, session
 
 app = Flask(__name__)
+app.secret_key = "jose"
+
+
+@app.before_first_request
+def initialize():
+    Database.initialize( )
 
 
 @app.route('/')
@@ -21,11 +27,6 @@ def login_user():
         User.login(email)
 
     return render_template("profile.html", email=session['email'])
-
-
-@app.before_first_request
-def initialize():
-    Database.initialize()
 
 
 if __name__ == '__main__':
